@@ -51,8 +51,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     };
     let input_file_path_in_project = "/src/input.txt";
     let mut input_file_path: String = String::from(cur_dir);
-    input_file_path.insert_str(
-        input_file_path.len(),
+    input_file_path.push_str(
         input_file_path_in_project
     );
     println!("{}", input_file_path);
