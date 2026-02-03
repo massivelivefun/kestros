@@ -1,5 +1,7 @@
 compilation_unit = {
-    namespace_member_declaration*
+    SOI
+    ~ namespace_member_declaration*
+    ~ EOI
 }
 
 namespace_member_declaration = {
@@ -14,10 +16,9 @@ class_declaration = {
     class_modifier
     ~ "partial"?
     ~ "class"
+    ~ identifier
     ~ class_body
 }
-
-
 
 class_modifier = @{
     "new"
@@ -38,7 +39,7 @@ unsafe_modifier = @{
 
 class_body = {
     "{"
-    ~ class_member_declaration
+    ~ class_member_declaration*
     ~ "}"
 }
 
@@ -48,23 +49,27 @@ class_member_declaration = {
 
 constant_declaration = {
     "const"
-    ~ type
+    ~ type_name
     ~ constant_declarators
     ~ ";"
 }
 
-type = {
+type_name = {
     "int"
 }
 
 constant_declarators = {
-    constant_declarator (',' constant_declarator)*
+    constant_declarator ~ ("," ~ constant_declarator)*
 }
 
 constant_declarator = {
     identifier
-    ~ '='
+    ~ "="
     ~ constant_expression
+}
+
+constant_expression = {
+    "1"
 }
 
 identifier = {
@@ -85,7 +90,11 @@ basic_identifier = {
 }
 
 identifier_start_character = {
+    ASCII_ALPHA | "_"
+}
 
+identifier_part_character  = {
+    ASCII_ALPHANUMERIC | "_"
 }
 
 WHITESPACE = _{ " " | NEWLINE }

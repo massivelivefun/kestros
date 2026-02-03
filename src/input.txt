@@ -1,11 +1,11 @@
-public class {
+public class PublicTest {
 
 }
 
-protected partial class {
+protected partial class ProtectedTest {
 
 }
 
-unsafe class {
+unsafe class UnsafeTest {
 
 }
